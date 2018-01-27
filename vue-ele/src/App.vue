@@ -31,16 +31,21 @@ export default {
 
 <style>
 @import './assets/icon/iconfont.css';
-html,bidy {
-  margin: 0;
+*{
+  margin:0;
   padding: 0;
-  height: 100%;
+}
+html,body {
   font-size: 100px;
 }
 a{
   text-decoration: none;
 }
+
 #app{
+   margin: 0;
+  padding: 0;
+  width: 3.75rem;
   height: 100%;
   display:flex;
   flex-direction: column;
