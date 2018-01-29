@@ -3,19 +3,19 @@
     <router-view class="contet"/>
     <div class="nav">
       <router-link to="/">
-        <i class="icon iconfont">&#xe699;</i>
+        <i class="iconfont">&#xe699;</i>
        <span> 首页</span>
         </router-link>
       <router-link to="/find">
-        <i class="icon iconfont">&#xe65d;</i>
+        <i class="iconfont">&#xe65d;</i>
         <span>发现</span>
         </router-link>
       <router-link to="/order">
-        <i class="icon iconfont">&#xe606;</i>
+        <i class="iconfont">&#xe606;</i>
         <span>订单</span>
       </router-link>
       <router-link to="/mine">
-        <i class="icon iconfont">&#xe608;</i>
+        <i class="iconfont">&#xe608;</i>
         <span>我的</span>
       </router-link>
     </div>
@@ -43,7 +43,7 @@ a{
 }
 
 #app{
-   margin: 0;
+  margin: 0;
   padding: 0;
   width: 3.75rem;
   height: 100%;
@@ -60,6 +60,8 @@ a{
   bottom: 0;
   left: 0;
   box-shadow: 0 -0.266667vw 0.533333vw rgba(0,0,0,.1);
+  background: #fff;
+  z-index: 100;
 }
 .nav a{
   flex:1;

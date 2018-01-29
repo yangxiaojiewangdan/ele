@@ -4,7 +4,7 @@ import Home from '@/components/Home'
 import Find from '@/components/Find'
 import Order from '@/components/Order'
 import Mine from '@/components/Mine'
-
+import List from '@/components/list/List'
 
 Vue.use(Router)
 
@@ -30,6 +30,11 @@ export default new Router({
       path: '/mine',
       name: 'Mine',
       component: Mine
+    },
+    {
+      path: '/list',
+      name: 'List',
+      component: List
     }
   ]
 })
