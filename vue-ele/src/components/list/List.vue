@@ -23,31 +23,57 @@
     </div>
     <div class="from">
       <ul>
-        <li v-for="item in list">
+        <li class="from-li" v-for="item in list">
           <div class="from-left">
             <img class="from-img" :src="'https://fuss10.elemecdn.com/'+item.restaurant.image_path+'.'+item.restaurant.image_path.split('').slice(32,).join('')+'?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/'">
           </div>
           <div class="from-right">
-            <span>{{item.restaurant.name}}</span>
-            <div class="right-star">
-              <span>*****</span>
-              <span>{{item.restaurant.rating}}</span>
-              <span>月售{{item.restaurant.recent_order_num}}单</span>
-              <span class="from-Hummingbird">蜂鸟专送</span>
-            </div>
-            <div class="right-price">
-              <span>￥{{item.restaurant.float_minimum_order_amount}}起送</span>
-              <span>|</span>
-              <span>配送费￥{{item.restaurant.float_delivery_fee}}</span>
-              <div class="distance">
-                <span>1.36km</span>
+            <div class="introduce">
+              <span>{{item.restaurant.name}}</span>
+              <div class="right-star">
+                <span>*****</span>
+                <span>{{item.restaurant.rating}}</span>
+                <span>
+                  月售{{item.restaurant.recent_order_num}}单
+                </span>
+                <span class="from-Hummingbird">蜂鸟专送</span>
+              </div>
+              <div class="right-price">
+                <span>
+                  ￥{{item.restaurant.float_minimum_order_amount}}起送
+                </span>
                 <span>|</span>
-                <span>24分钟</span>
+                <span>配送费￥{{item.restaurant.float_delivery_fee}}</span>
+                <div class="distance">
+                  <span>1.36km</span>
+                  <span>|</span>
+                  <span>24分钟</span>
+                </div>
+              </div>
+              <div class="evaluate">
+                <img class="evaluate-img" :src="'https://fuss10.elemecdn.com/'+item.restaurant.recommend.image_hash+'.png?imageMogr/format/webp/thumbnail/!60x60r/gravity/Center/crop/60x60/'">
+                <span class="evaluate-span">
+                  {{item.restaurant.recommend.reason}}
+                </span>
               </div>
             </div>
-            <div class="evaluate">
-              <img class="evaluate-img" :src="'https://fuss10.elemecdn.com/'+item.restaurant.recommend.image_hash+'.png?imageMogr/format/webp/thumbnail/!60x60r/gravity/Center/crop/60x60/'">
-              <span class="evaluate-span">{{item.restaurant.recommend.reason}}</span>
+            <div class="Discount">
+              <div class="reduce">
+                <span class="reduce-first">
+                  {{item.restaurant.activities[0].icon_name}}
+                </span>
+                <span>
+                  {{item.restaurant.activities[0].tips}}
+                </span>
+              </div>
+              <div class="gift">
+               <!--  <span class="gift-reduce">
+                  {{item.restaurant.activities[1].icon_name}}
+                </span>
+                <span class="full">
+                  {{item.restaurant.activities[1].tips}}
+                </span> -->
+              </div>
             </div>
           </div>
         </li>
@@ -120,6 +146,10 @@ export default {
     position: relative;
     top: 0.75rem;
   }
+  .from-li{
+    overflow: hidden;
+    border-bottom: 1px solid #fbfbfb;
+  }
   .from-left{
     float: left;
   }
@@ -128,6 +158,10 @@ export default {
     width: .58rem;
     height: .58rem;
     margin: .12rem;
+  }
+  .introduce{
+    overflow: hidden;
+    border-bottom: 1px solid #f4f4f4;
   }
   .from-right{
     float: left;
@@ -151,10 +185,10 @@ export default {
   }
   .distance{
     float: right;
+    margin-right: .1rem;
   }
   .evaluate{
-    height: .23rem;
-    border-bottom: 1px solid #f7f7f7;
+    margin-bottom: .07rem;
   }
   .evaluate-img{
     width: .09rem;
@@ -164,4 +198,22 @@ export default {
     font-size: .06rem;
     color: #e8470b;
   }
+  .Discount{
+    margin-top: .1rem;
+  }
+  .reduce{
+    font-size: .1rem;
+  }
+  .reduce-first{
+    background: #70bc46;
+    color: #fff;
+  }
+  .gift{
+    font-size: .1rem;
+  }
+  .gift-reduce{
+    background: #70bc46;
+    color: #fff;
+  }
+  
 </style>
