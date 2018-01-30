@@ -47,46 +47,55 @@
   	</div>
   	<div class="shuju">
   		<ol>
-  			<li><a href="#">
-  				<img >
-  				<h4 class="details"></h4>
-  				<div class="good"></div>
-  				<div class="price"></div>
-  				<div class="shop"></div>
+  			<li v-for="item in list"><a href="#">
+  				<img :src="'http://fuss10.elemecdn.com/'+item.food.image_path+'.jpeg?imageMogr/format/webp/thumbnail/!345x345r/gravity/Center/crop/345x345/'">
+  				<h4 class="details">{{item.food.name}}</h4>
+  				<div class="good">月售{{item.food.month_sales}}份
+  					<span>好评{{item.food.satisfy_rate}}%</span>
+  				</div>
+  				<div class="price">￥{{item.food.price}}
+  					<span class="price1">￥{{item.food.original_price}}</span>
+  				</div>
+  				<div class="shop">{{item.food.restaurant_name}}</div>
   			</a></li>
-  			<li><a href="#">
-  				<img >
-  				<h4 class="details"></h4>
-  				<div class="good"></div>
-  				<div class="price"></div>
-  				<div class="shop"></div>
-  			</a></li>
+  			<button @click="loadMore">查看更多 >
+  			</button>
   		</ol>
   	</div>
   </div>
 </template>
 
 <script>
+import { Indicator } from 'mint-ui';
 import axios from 'axios';
 export default {
   name: 'Find',
   data () {
     return {
-    	
+    		list:[],
+    		offset:0
     }
   },
-    mounted() {
-    console.log(this);
-    console.log(this.$route.params.id);
-    var id = this.$route.params.id;
-
-axios.get("/restapi/shopping/v1/find/recommendation?latitude=39.90469&longitude=116.407173&offset=0&limit=6")
+   mounted () {
+		axios.get("/restapi/shopping/v1/find/recommendation?latitude=39.90469&longitude=116.407173&offset=0&limit=6")
     .then((res)=>{
       console.log(res)
-      this.list = res.data[0].entries
-      this.list2 = this.list.slice(10,)
-      this.list = this.list.slice(0,10)
+      this.list = res.data.items;
     })
+	},
+	methods:{
+		loadMore () {
+			Indicator.open({
+  			text: '加载中...',
+  			spinnerType: 'triple-bounce'
+		});
+			axios.get("/restapi/shopping/v1/find/recommendation?offset=${this.offset + 20}&limit=20&rank_id=8a51a9675b5145afb1bab3c38db39cad&latitude=39.90469&longitude=116.407173")	
+    .then((res)=>{
+      console.log(res)
+      this.offset +=20;
+      this.list = this.list.concat(res.data.items);
+    }) 
+		}
 	}
 }
 </script>
@@ -101,6 +110,7 @@ axios.get("/restapi/shopping/v1/find/recommendation?latitude=39.90469&longitude=
 		font-weight:bold;
 	}
 	section{
+		width: 100%;
 		margin-top: 0.4rem;
 		height: 3.415rem;
 		display: flex;
@@ -195,48 +205,66 @@ axios.get("/restapi/shopping/v1/find/recommendation?latitude=39.90469&longitude=
 	.shuju{
 		width: 100%;
 		height: 100%;
+		margin-bottom: 50px;
 	}
 	.shuju ol{
 		width: 100%;
 		height: 100%;
 		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
+		flex-wrap:wrap;
+		flex-grow: 1;
 	}
 	.shuju li{
 		font-size: 16px;
-		width: 49%;
+		width: 47.3%;
 		height: 100%;
 		list-style: none;
-		background: #0085FF;
 		margin:0.05rem 0.05rem;
 	}
 	.shuju img{
 		width: 100%;
 		height: 1.725rem;
-		background:#E7E1CD;
 		text-align: center;
 	}
 	.details{
+		width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 0.25rem;
 		text-align: center;
 		font-size: 16px;
+		color: black;
 	}
 	.good{
 		height: 0.12rem;
 		text-align: center;
-		background: #404040;
 		font-size:12px ;
 	}
 	.price{
-		text-align: center;
+		padding-left: 0.2rem;
+		padding-top:0.05rem ;
 		height:0.22rem ;
 		color:  #ff6000;
-		border: 0.005rem solid #E9E9E9;
+		border-bottom: 0.005rem solid #999999;
+	}
+	.price1{
+		padding-left:0;
+		font-size:12px ;
+		color:gray ;
+		text-decoration: line-through;
 	}
 	.shop{
+		font-size: 12px;
 		text-align: center;
 		height: 0.33rem;
 		line-height: 0.33rem;
-		background: #666666;
+		color: #999999;
+	}
+	button{
+		margin: 0 auto;
+		border: none;
+		background: white;
+		padding:0.125rem 0;
 	}
 </style>
